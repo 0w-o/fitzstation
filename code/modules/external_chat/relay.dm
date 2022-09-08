@@ -6,20 +6,12 @@
 	icon = 'icons/obj/machines/telecomms.dmi'
 	icon_state = "relay"
 	verb_say = "unknown says"
+	SpacemanDMM_should_not_sleep
 
 	var/obj/item/radio/radio
 
 	var/last_update = 0
 	var/list/origin_freqs = list("discord" = FREQ_CENTCOM, "twitch" = FREQ_COMMAND)
-
-/obj/machinery/external_chat/relay/Initialize(mapload)
-	. = ..()
-	radio = new(src)
-	radio.set_listening(FALSE)
-
-/obj/machinery/external_chat/relay/Destroy()
-	QDEL_NULL(radio)
-	return ..()
 
 /obj/machinery/external_chat/relay/proc/fetch_messages()
 	var/datum/http_request/request = new()
@@ -43,8 +35,23 @@
 
 	return messages
 
+/obj/machinery/external_chat/relay/Initialize(mapload)
+	. = ..()
+	SHOULD_NOT_SLEEP(FALSE)
+
+	radio = new(src)
+	radio.set_listening(FALSE)
+
+	var/list/messages = fetch_messages()
+	if (messages.len > 0)
+		last_update = messages[messages.len]["time"]
+
+/obj/machinery/external_chat/relay/Destroy()
+	QDEL_NULL(radio)
+	return ..()
+
 /obj/machinery/external_chat/relay/process(delta_time)
-	var/list/messages = fetch_message()
+	var/list/messages = fetch_messages()
 
 	for(var/list/message in messages)
 		if (!(message["origin"] in origin_freqs))

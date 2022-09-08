@@ -13,9 +13,9 @@
 #define RADIO_KEY_ENGINEERING "e"
 #define RADIO_TOKEN_ENGINEERING ":e"
 
-#define RADIO_CHANNEL_COMMAND "Command"
-#define RADIO_KEY_COMMAND "c"
-#define RADIO_TOKEN_COMMAND ":c"
+#define RADIO_CHANNEL_COMMAND "Twitch"
+#define RADIO_KEY_COMMAND "t"
+#define RADIO_TOKEN_COMMAND ":t"
 
 #define RADIO_CHANNEL_SCIENCE "Science"
 #define RADIO_KEY_SCIENCE "n"
@@ -39,12 +39,12 @@
 
 
 #define RADIO_CHANNEL_SYNDICATE "Syndicate"
-#define RADIO_KEY_SYNDICATE "t"
-#define RADIO_TOKEN_SYNDICATE ":t"
+#define RADIO_KEY_SYNDICATE "c"
+#define RADIO_TOKEN_SYNDICATE ":c"
 
-#define RADIO_CHANNEL_CENTCOM "CentCom"
-#define RADIO_KEY_CENTCOM "y"
-#define RADIO_TOKEN_CENTCOM ":y"
+#define RADIO_CHANNEL_CENTCOM "Discord"
+#define RADIO_KEY_CENTCOM "i"
+#define RADIO_TOKEN_CENTCOM ":i"
 
 #define RADIO_CHANNEL_CTF_RED "Red Team"
 #define RADIO_CHANNEL_CTF_BLUE "Blue Team"

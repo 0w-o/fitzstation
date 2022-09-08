@@ -189,6 +189,13 @@
 	var/spans = data["spans"]
 	var/list/message_mods = data["mods"]
 	var/rendered = virt.compose_message(virt, language, message, frequency, spans)
+	var/rendered_basic = virt.compose_message_basic(virt, language, message, frequency, spans)
+
+	if(frequency == FREQ_COMMAND)
+		virt.send_speech_to_twitch(rendered_basic)
+
+	if(frequency == FREQ_CENTCOM)
+		virt.send_speech_to_discord(rendered_basic)
 
 	for(var/atom/movable/hearer as anything in receive)
 		if(!hearer)

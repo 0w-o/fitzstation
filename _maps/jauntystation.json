@@ -1,0 +1,9 @@
+{
+	"version": 1,
+	"map_name": "Jaunty Station",
+	"map_path": "map_files/JauntyStation",
+	"map_file": "JauntyStation.dmm",
+	"shuttles": {
+		"cargo": "cargo_delta"
+	}
+}

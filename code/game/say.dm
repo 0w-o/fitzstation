@@ -30,6 +30,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	spans |= speech_span
 	if(!language)
 		language = get_selected_language()
+
 	send_speech(message, range, src, , spans, message_language=language)
 
 /atom/movable/proc/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
@@ -39,6 +40,16 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	//SHOULD_BE_PURE(TRUE)
 	return TRUE
 
+/atom/movable/proc/send_speech_to_discord(message)
+	var/datum/http_request/request = new()
+	request.prepare(RUSTG_HTTP_METHOD_GET, "http://localhost:8192/chat/discord?message=[url_encode(message)]", "", "")
+	request.begin_async()
+
+/atom/movable/proc/send_speech_to_twitch(message)
+	var/datum/http_request/request = new()
+	request.prepare(RUSTG_HTTP_METHOD_GET, "http://localhost:8192/chat/twitch?message=[url_encode(message)]", "", "")
+	request.begin_async()
+
 /atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language, list/message_mods = list())
 	var/rendered = compose_message(src, message_language, message, , spans, message_mods)
 	for(var/atom/movable/hearing_movable as anything in get_hearers_in_view(range, source))
@@ -46,6 +57,19 @@ GLOBAL_LIST_INIT(freqtospan, list(
 			stack_trace("somehow theres a null returned from get_hearers_in_view() in send_speech!")
 			continue
 		hearing_movable.Hear(rendered, src, message_language, message, , spans, message_mods)
+
+/atom/movable/proc/compose_message_basic(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), face_name = FALSE)
+	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
+	if(face_name && ishuman(speaker))
+		var/mob/living/carbon/human/H = speaker
+		namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
+
+	//Message
+	var/messagepart = lang_treat(speaker, message_language, raw_message, spans, message_mods)
+	messagepart = " [say_emphasis(messagepart)]"
+
+	return "[compose_track_href(speaker, namepart)][namepart][compose_job(speaker, message_language, raw_message, radio_freq)][messagepart]"
+
 
 /atom/movable/proc/compose_message(atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list(), face_name = FALSE)
 	//This proc uses text() because it is faster than appending strings. Thanks BYOND.

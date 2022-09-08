@@ -30,9 +30,9 @@ export const RADIO_PREFIXES = {
     id: 'binary',
     label: '0101',
   },
-  ':c ': {
+  ':t ': {
     id: 'command',
-    label: 'Cmd',
+    label: 'Twitch',
   },
   ':e ': {
     id: 'engi',
@@ -54,7 +54,7 @@ export const RADIO_PREFIXES = {
     id: 'security',
     label: 'Sec',
   },
-  ':t ': {
+  ':c ': {
     id: 'syndicate',
     label: 'Syndi',
   },
@@ -66,8 +66,8 @@ export const RADIO_PREFIXES = {
     id: 'service',
     label: 'Svc',
   },
-  ':y ': {
+  ':i ': {
     id: 'centcom',
-    label: 'CCom',
+    label: 'Discord',
   },
 } as const;

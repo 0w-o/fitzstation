@@ -2604,6 +2604,10 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/construction)
+"PP" = (
+/obj/machinery/external_chat/relay,
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "Qi" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
@@ -7854,7 +7858,7 @@ ds
 dJ
 dJ
 dJ
-dJ
+PP
 dJ
 dJ
 dJ

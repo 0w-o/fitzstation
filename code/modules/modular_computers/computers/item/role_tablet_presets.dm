@@ -11,6 +11,7 @@
 		/datum/computer_file/program/science,
 		/datum/computer_file/program/robocontrol,
 		/datum/computer_file/program/budgetorders,
+		/datum/computer_file/program/supermatter_monitor,
 	)
 
 /obj/item/modular_computer/tablet/pda/heads/Initialize(mapload)

@@ -48,3 +48,7 @@ endmap
 map jauntystation
 	default
 endmap
+
+map pubbystation
+	votable
+endmap

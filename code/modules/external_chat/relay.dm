@@ -1,4 +1,7 @@
 /obj/machinery/external_chat
+	name = "External Chat"
+	desc = "An invalid object. Don't do it."
+	icon = 'icons/obj/machines/telecomms.dmi'
 
 /obj/machinery/external_chat/relay
 	name = ""
@@ -6,12 +9,16 @@
 	icon = 'icons/obj/machines/telecomms.dmi'
 	icon_state = "relay"
 	verb_say = "unknown says"
-	SpacemanDMM_should_not_sleep
+
+	var/list/service_freq_mapping = list(
+		"twitch" = FREQ_COMMAND,
+		"discord" = FREQ_CENTCOM,
+		"youtube" = FREQ_SYNDICATE
+		)
 
 	var/obj/item/radio/radio
 
 	var/last_update = 0
-	var/list/origin_freqs = list("discord" = FREQ_CENTCOM, "twitch" = FREQ_COMMAND)
 
 /obj/machinery/external_chat/relay/proc/fetch_messages()
 	var/datum/http_request/request = new()
@@ -54,12 +61,12 @@
 	var/list/messages = fetch_messages()
 
 	for(var/list/message in messages)
-		if (!(message["origin"] in origin_freqs))
+		if (!(message["origin"] in service_freq_mapping))
 			return
 
 		verb_say = "[message["sender"]] says"
 
-		var/radio_freq = origin_freqs[message["origin"]]
+		var/radio_freq = service_freq_mapping[message["origin"]]
 		var/list/spans = list(get_radio_span(radio_freq))
 		radio.set_frequency(radio_freq)
 		radio.talk_into(src, message["content"], radio_freq, spans)

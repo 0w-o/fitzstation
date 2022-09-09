@@ -48,7 +48,7 @@ em						{font-style: normal;	font-weight: bold;}
 .engradio				{color: #fb5613;}
 .suppradio				{color: #a8732b;}
 .servradio				{color: #6eaa2c;}
-.syndradio				{color: #6d3f40;}
+.syndradio				{color: #ff0000;}
 .centcomradio			{color: #5865F2;}
 .aiprivradio			{color: #ff00ff;}
 .redteamradio			{color: #ff0000;}

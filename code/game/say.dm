@@ -40,14 +40,9 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	//SHOULD_BE_PURE(TRUE)
 	return TRUE
 
-/atom/movable/proc/send_speech_to_discord(message)
+/atom/movable/proc/send_speech_to_service(service, message)
 	var/datum/http_request/request = new()
-	request.prepare(RUSTG_HTTP_METHOD_GET, "http://localhost:8192/chat/discord?message=[url_encode(message)]", "", "")
-	request.begin_async()
-
-/atom/movable/proc/send_speech_to_twitch(message)
-	var/datum/http_request/request = new()
-	request.prepare(RUSTG_HTTP_METHOD_GET, "http://localhost:8192/chat/twitch?message=[url_encode(message)]", "", "")
+	request.prepare(RUSTG_HTTP_METHOD_GET, "http://localhost:8192/chat/[service]?message=[url_encode(message)]", "", "")
 	request.begin_async()
 
 /atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language, list/message_mods = list())

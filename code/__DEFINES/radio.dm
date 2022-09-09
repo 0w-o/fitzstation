@@ -13,10 +13,6 @@
 #define RADIO_KEY_ENGINEERING "e"
 #define RADIO_TOKEN_ENGINEERING ":e"
 
-#define RADIO_CHANNEL_COMMAND "Twitch"
-#define RADIO_KEY_COMMAND "t"
-#define RADIO_TOKEN_COMMAND ":t"
-
 #define RADIO_CHANNEL_SCIENCE "Science"
 #define RADIO_KEY_SCIENCE "n"
 #define RADIO_TOKEN_SCIENCE ":n"
@@ -37,10 +33,13 @@
 #define RADIO_KEY_AI_PRIVATE "o"
 #define RADIO_TOKEN_AI_PRIVATE ":o"
 
+#define RADIO_CHANNEL_COMMAND "Twitch"
+#define RADIO_KEY_COMMAND "t"
+#define RADIO_TOKEN_COMMAND ":t"
 
-#define RADIO_CHANNEL_SYNDICATE "Syndicate"
-#define RADIO_KEY_SYNDICATE "c"
-#define RADIO_TOKEN_SYNDICATE ":c"
+#define RADIO_CHANNEL_SYNDICATE "Youtube"
+#define RADIO_KEY_SYNDICATE "y"
+#define RADIO_TOKEN_SYNDICATE ":y"
 
 #define RADIO_CHANNEL_CENTCOM "Discord"
 #define RADIO_KEY_CENTCOM "i"

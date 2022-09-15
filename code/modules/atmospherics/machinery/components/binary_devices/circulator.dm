@@ -21,12 +21,12 @@
 	var/mode = CIRCULATOR_HOT
 	var/obj/machinery/power/generator/generator
 
-/obj/machinery/atmospherics/components/binary/circulator/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/simple_rotation)
+// /obj/machinery/atmospherics/components/binary/circulator/Initialize(mapload)
+// 	. = ..()
+// 	AddComponent(/datum/component/simple_rotation)
 
-/obj/machinery/atmospherics/components/binary/circulator/AltClick(mob/user)
-	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
+// /obj/machinery/atmospherics/components/binary/circulator/AltClick(mob/user)
+// 	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
 
 //default cold circ for mappers
 /obj/machinery/atmospherics/components/binary/circulator/cold
@@ -129,9 +129,9 @@
 /obj/machinery/atmospherics/components/binary/circulator/set_init_directions()
 	switch(dir)
 		if(NORTH, SOUTH)
-			initialize_directions = EAST|WEST
-		if(EAST, WEST)
 			initialize_directions = NORTH|SOUTH
+		if(EAST, WEST)
+			initialize_directions = EAST|WEST
 
 /obj/machinery/atmospherics/components/binary/circulator/get_node_connects()
 	if(flipped)
@@ -194,6 +194,3 @@
 	flipped = !flipped
 	to_chat(usr, span_notice("You flip [src]."))
 	update_appearance()
-
-#undef CIRCULATOR_HOT
-#undef CIRCULATOR_COLD

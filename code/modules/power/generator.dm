@@ -158,20 +158,19 @@
 	var/circpath = /obj/machinery/atmospherics/components/binary/circulator
 	if(dir == NORTH || dir == SOUTH)
 		C = locate(circpath) in get_step(src, EAST)
-		if(C && C.dir == WEST)
+		if(C && C.dir == NORTH)
 			circs += C
 
 		C = locate(circpath) in get_step(src, WEST)
+		if(C && C.dir == SOUTH)
+			circs += C
+	else
+		C = locate(circpath) in get_step(src, NORTH)
 		if(C && C.dir == EAST)
 			circs += C
 
-	else
-		C = locate(circpath) in get_step(src, NORTH)
-		if(C && C.dir == SOUTH)
-			circs += C
-
 		C = locate(circpath) in get_step(src, SOUTH)
-		if(C && C.dir == NORTH)
+		if(C && C.dir == SOUTH)
 			circs += C
 
 	if(circs.len)

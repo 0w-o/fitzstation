@@ -629,6 +629,15 @@
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
 	glass_amount = 2
 
+/obj/structure/window/fulltile/goon
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "goonwindow-0"
+	base_icon_state = "goonwindow"
+
+/obj/structure/window/fulltile/goon/unanchored
+	anchored = FALSE
+
+
 /obj/structure/window/fulltile/unanchored
 	anchored = FALSE
 

@@ -187,6 +187,25 @@
 
 	addtimer(CALLBACK(src, /atom/.proc/update_appearance), 15)
 
+/obj/machinery/button/proc/activate()
+	if(!initialized_button)
+		setup_device()
+
+	if((machine_stat & (NOPOWER|BROKEN)))
+		return
+
+	if(device && device.next_activate > world.time)
+		return
+
+	use_power(5)
+	icon_state = "[skin]1"
+
+	if(device)
+		device.pulsed(pulser = null)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_BUTTON_PRESSED,src)
+
+	addtimer(CALLBACK(src, /atom/.proc/update_appearance), 15)
+
 /obj/machinery/button/door
 	name = "door button"
 	desc = "A door remote control switch."
@@ -334,3 +353,29 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 	. = ..()
 	. += span_notice("There's a small inscription on the button...")
 	. += span_notice("THIS CALLS THE TRAM! IT DOES NOT OPERATE IT! The console on the tram tells it where to go!")
+
+/obj/item/circuit_component/button
+	display_name = "Button"
+	desc = "Allows you to activate the button."
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
+
+	var/datum/port/input/state
+	var/datum/port/input/trigger
+
+	var/obj/machinery/button/attached_button
+
+/obj/item/circuit_component/button/populate_ports()
+	state = add_input_port("State", PORT_TYPE_NUMBER)
+	trigger = add_input_port("Trigger", PORT_TYPE_SIGNAL)
+
+/obj/item/circuit_component/button/register_usb_parent(atom/movable/parent)
+	. = ..()
+	if(istype(parent, /obj/machinery/button))
+		attached_button = parent
+
+/obj/item/circuit_component/button/unregister_usb_parent(atom/movable/parent)
+	attached_button = null
+	return ..()
+
+/obj/item/circuit_component/button/input_received(datum/port/input/port)
+	attached_button?.activate()

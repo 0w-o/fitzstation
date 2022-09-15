@@ -46,9 +46,14 @@ map multiz_debug
 endmap
 
 map jauntystation
-	default
+	#default
 endmap
 
 map pubbystation
 	votable
+	#default
+endmap
+
+map archipelago
+	default
 endmap

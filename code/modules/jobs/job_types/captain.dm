@@ -62,13 +62,12 @@
 		/obj/item/melee/baton/telescopic = 1,
 		/obj/item/modular_computer/tablet/pda/heads/captain = 1,
 		)
-	belt = null
+	belt = /obj/item/storage/belt/utility/captain
 	ears = /obj/item/radio/headset/heads/captain/alt
-	// glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/fitz
 	// gloves = /obj/item/clothing/gloves/color/captain
 	// head = /obj/item/clothing/head/caphat
 	shoes = /obj/item/clothing/shoes/sneakers/brown
-
 
 	backpack = /obj/item/storage/backpack/ert/engineer
 	satchel = /obj/item/storage/backpack/satchel/cap
@@ -103,10 +102,11 @@
 
 /datum/outfit/job/captain/post_equip(mob/living/carbon/human/equipped, visualsOnly)
 	. = ..()
-	var/obj/item/station_charter/banner/celestial_charter = equipped.held_items[LEFT_HANDS]
-	if(!celestial_charter)
-		return
-	celestial_charter.name_type = special_charter
+	var/obj/item/modular_computer/tablet/pda/heads/captain/pda = equipped.held_items[LEFT_HANDS]
+	var/obj/item/computer_hardware/card_slot/card_slot = pda.all_components[MC_CARD]
+	var/obj/item/card/id/id = equipped.get_idcard(FALSE)
+
+	card_slot.try_insert(equipped, id)
 
 /datum/outfit/job/captain/mod
 	name = "Captain (MODsuit)"

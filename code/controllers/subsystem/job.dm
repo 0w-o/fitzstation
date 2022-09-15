@@ -810,19 +810,19 @@ SUBSYSTEM_DEF(job)
 	if(!id_safe_code)
 		CRASH("Cannot promote [new_captain.real_name] to Captain, there is no id_safe_code.")
 
-	var/paper = new /obj/item/paper/fluff/spare_id_safe_code()
-	var/list/slots = list(
-		LOCATION_LPOCKET = ITEM_SLOT_LPOCKET,
-		LOCATION_RPOCKET = ITEM_SLOT_RPOCKET,
-		LOCATION_BACKPACK = ITEM_SLOT_BACKPACK,
-		LOCATION_HANDS = ITEM_SLOT_HANDS
-	)
-	var/where = new_captain.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
+	// var/paper = new /obj/item/paper/fluff/spare_id_safe_code()
+	// var/list/slots = list(
+	// 	LOCATION_LPOCKET = ITEM_SLOT_LPOCKET,
+	// 	LOCATION_RPOCKET = ITEM_SLOT_RPOCKET,
+	// 	LOCATION_BACKPACK = ITEM_SLOT_BACKPACK,
+	// 	LOCATION_HANDS = ITEM_SLOT_HANDS
+	// )
+	// var/where = new_captain.equip_in_one_of_slots(paper, slots, FALSE) || "at your feet"
 
-	if(acting_captain)
-		to_chat(new_captain, span_notice("Due to your position in the chain of command, you have been promoted to Acting Captain. You can find in important note about this [where]."))
-	else
-		to_chat(new_captain, span_notice("You can find the code to obtain your spare ID from the secure safe on the Bridge [where]."))
+	// if(acting_captain)
+	// 	to_chat(new_captain, span_notice("Due to your position in the chain of command, you have been promoted to Acting Captain. You can find in important note about this [where]."))
+	// else
+	// 	to_chat(new_captain, span_notice("You can find the code to obtain your spare ID from the secure safe on the Bridge [where]."))
 
 	// Force-give their ID card bridge access.
 	var/obj/item/id_slot = new_captain.get_item_by_slot(ITEM_SLOT_ID)

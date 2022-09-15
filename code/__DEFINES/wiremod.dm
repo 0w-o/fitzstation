@@ -40,6 +40,8 @@
 /// Associative List datatype. Derivative of list.
 #define PORT_TYPE_ASSOC_LIST(key_datatype, datatype) SSwiremod_composite.composite_datatype(PORT_COMPOSITE_TYPE_ASSOC_LIST, key_datatype, datatype)
 
+#define PORT_TYPE_VECTOR "vector"
+
 // Other datatypes
 /// Atom datatype
 #define PORT_TYPE_ATOM "entity"

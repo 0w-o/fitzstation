@@ -194,3 +194,6 @@
 	flipped = !flipped
 	to_chat(usr, span_notice("You flip [src]."))
 	update_appearance()
+
+#undef CIRCULATOR_HOT
+#undef CIRCULATOR_COLD

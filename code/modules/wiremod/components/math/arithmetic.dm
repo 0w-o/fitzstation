@@ -4,6 +4,10 @@
 #define COMP_ARITHMETIC_DIVIDE "Divide"
 #define COMP_ARITHMETIC_MIN "Minimum"
 #define COMP_ARITHMETIC_MAX "Maximum"
+#define COMP_ARITHMETIC_SQRT "Sqrt"
+#define COMP_ARITHMETIC_ATAN2 "Atan2"
+#define COMP_ARITHMETIC_VECTOR_LENGTH "Vector Length"
+#define COMP_ARITHMETIC_VECTOR_NORMALIZE "Normalize Vector"
 
 /**
  * # Arithmetic Component
@@ -36,6 +40,9 @@
 		COMP_ARITHMETIC_DIVIDE,
 		COMP_ARITHMETIC_MIN,
 		COMP_ARITHMETIC_MAX,
+		COMP_ARITHMETIC_SQRT,
+		COMP_ARITHMETIC_ATAN2,
+		COMP_ARITHMETIC_VECTOR_LENGTH
 	)
 	arithmetic_option = add_option_port("Arithmetic Option", component_options)
 
@@ -79,6 +86,14 @@
 				result = max(result, value)
 			if(COMP_ARITHMETIC_MIN)
 				result = min(result, value)
+			if(COMP_ARITHMETIC_SQRT)
+				result = sqrt(result)
+			if(COMP_ARITHMETIC_ATAN2)
+				result = ATAN2(result, value)
+			if(COMP_ARITHMETIC_VECTOR_LENGTH)
+				result = sqrt(result*result+value*value)
+				if(result == 0)
+					result = 1
 
 	output.set_output(result)
 
@@ -88,3 +103,7 @@
 #undef COMP_ARITHMETIC_DIVIDE
 #undef COMP_ARITHMETIC_MIN
 #undef COMP_ARITHMETIC_MAX
+#undef COMP_ARITHMETIC_SQRT
+#undef COMP_ARITHMETIC_ATAN2
+#undef COMP_ARITHMETIC_VECTOR_LENGTH
+#undef COMP_ARITHMETIC_VECTOR_NORMALIZE

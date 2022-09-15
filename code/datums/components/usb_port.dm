@@ -27,11 +27,11 @@
 	src.circuit_component_types = circuit_component_types
 
 /datum/component/usb_port/proc/set_circuit_components(list/components)
-	var/should_register = FALSE
-	if(length(circuit_components))
-		UnregisterFromParent()
-		should_register = TRUE
-		QDEL_LIST(circuit_components)
+	var/should_register = TRUE
+	// if(length(circuit_components))
+	// 	UnregisterFromParent()
+	// 	should_register = TRUE
+	// 	QDEL_LIST(circuit_components)
 
 	for(var/circuit_component in components)
 		var/obj/item/circuit_component/component = circuit_component

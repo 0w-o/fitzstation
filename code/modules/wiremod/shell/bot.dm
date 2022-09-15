@@ -47,3 +47,7 @@
 	entity.set_output(user)
 	signal.set_output(COMPONENT_SIGNAL)
 
+/obj/item/circuit_component/bot/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	default_unfasten_wrench(user, tool)
+	return TOOL_ACT_TOOLTYPE_SUCCESS

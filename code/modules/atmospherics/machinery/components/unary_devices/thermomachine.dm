@@ -288,6 +288,10 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/update_layer()
 	return
 
+/obj/machinery/atmospherics/components/unary/thermomachine/engine
+	circuit = /obj/item/circuitboard/machine/thermomachine/fullupgrade
+	greyscale_colors = COLOR_CYAN
+
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer
 
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on
@@ -312,5 +316,91 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/heater/on
 	on = TRUE
 	icon_state = "thermo_base_1"
+
+// usb
+
+/obj/item/circuit_component/thermomachine
+	display_name = "Thermomachine"
+	desc = "The interface for communicating with a thermomachine."
+
+	///Set the target temperature of the machine
+	var/datum/port/input/temperature_value
+	///Activate the machine
+	var/datum/port/input/on
+	///Deactivate the machine
+	var/datum/port/input/off
+	///Signals the circuit to retrieve the pump's current pressure and temperature
+	var/datum/port/input/request_data
+
+	///Current temperature
+	var/datum/port/output/current_temperature
+	///Current target temperature
+	var/datum/port/output/target_temperature
+
+	///Whether the machine is currently active
+	var/datum/port/output/is_active
+
+	///The component parent object
+	var/obj/machinery/atmospherics/components/unary/thermomachine/connected_machine
+
+/obj/item/circuit_component/thermomachine/populate_ports()
+	temperature_value = add_input_port("New Target Temperature", PORT_TYPE_NUMBER, trigger = .proc/set_machine_temperature)
+	on = add_input_port("Turn On", PORT_TYPE_SIGNAL, trigger = .proc/set_machine_on)
+	off = add_input_port("Turn Off", PORT_TYPE_SIGNAL, trigger = .proc/set_machine_off)
+	request_data = add_input_port("Request Port Data", PORT_TYPE_SIGNAL, trigger = .proc/request_machine_data)
+
+	current_temperature = add_output_port("Current Temperature", PORT_TYPE_NUMBER)
+	target_temperature = add_output_port("Target Temperature", PORT_TYPE_NUMBER)
+
+	is_active = add_output_port("Active", PORT_TYPE_NUMBER)
+
+/obj/item/circuit_component/thermomachine/register_usb_parent(atom/movable/shell)
+	. = ..()
+	if(istype(shell, /obj/machinery/atmospherics/components/unary/thermomachine))
+		connected_machine = shell
+		RegisterSignal(connected_machine, COMSIG_ATMOS_MACHINE_SET_ON, .proc/handle_machine_activation)
+
+/obj/item/circuit_component/thermomachine/unregister_usb_parent(atom/movable/shell)
+	UnregisterSignal(connected_machine, COMSIG_ATMOS_MACHINE_SET_ON)
+	connected_machine = null
+	return ..()
+
+/obj/item/circuit_component/thermomachine/pre_input_received(datum/port/input/port)
+	if(connected_machine)
+		temperature_value.set_value(clamp(temperature_value.value, connected_machine.min_temperature, connected_machine.max_temperature))
+
+/obj/item/circuit_component/thermomachine/proc/handle_machine_activation(datum/source, active)
+	SIGNAL_HANDLER
+	is_active.set_output(active)
+
+/obj/item/circuit_component/thermomachine/proc/set_machine_temperature()
+	CIRCUIT_TRIGGER
+	if(!connected_machine)
+		return
+	connected_machine.target_temperature = temperature_value.value
+
+/obj/item/circuit_component/thermomachine/proc/set_machine_on()
+	CIRCUIT_TRIGGER
+	if(!connected_machine)
+		return
+	connected_machine.set_on(TRUE)
+	connected_machine.update_appearance()
+
+/obj/item/circuit_component/thermomachine/proc/set_machine_off()
+	CIRCUIT_TRIGGER
+	if(!connected_machine)
+		return
+	connected_machine.set_on(FALSE)
+	connected_machine.update_appearance()
+
+/obj/item/circuit_component/thermomachine/proc/request_machine_data()
+	CIRCUIT_TRIGGER
+	if(!connected_machine)
+		return
+
+	var/datum/gas_mixture/port = connected_machine.airs[1]
+
+	current_temperature.set_output(port.temperature)
+	target_temperature.set_output(connected_machine.target_temperature)
 
 #undef THERMOMACHINE_POWER_CONVERSION

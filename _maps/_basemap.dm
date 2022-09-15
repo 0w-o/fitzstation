@@ -14,6 +14,7 @@
 		#include "map_files\tramstation\tramstation.dmm"
 		#include "map_files\JauntyStation\JauntyStation.dmm"
 		#include "map_files\PubbyStation\PubbyStation.dmm"
+		#include "map_files\Archipelago\Archipelago.dmm"
 
 		#ifdef CIBUILDING
 			#include "templates.dm"

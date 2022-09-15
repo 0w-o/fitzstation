@@ -127,6 +127,17 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
 
+/obj/item/clothing/glasses/fitz
+	name = "fitz glasses"
+	desc = "Hey, you're looking good, senpai!"
+	icon_state = "redglasses"
+	inhand_icon_state = "redglasses"
+	clothing_traits = list(TRAIT_MADNESS_IMMUNE)
+	flash_protect = FLASH_PROTECTION_WELDER
+	darkness_view = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	glass_colour_type = /datum/client_colour/glass_colour/red
+
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
 	desc = "Do the impossible, see the invisible!"

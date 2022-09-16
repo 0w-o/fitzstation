@@ -15,7 +15,6 @@
 	var/lastgenlev = -1
 	var/lastcirc = "00"
 
-
 /obj/machinery/power/generator/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/simple_rotation)
@@ -36,7 +35,7 @@
 
 	var/L = min(round(lastgenlev / 100000), 11)
 	if(L != 0)
-		. += mutable_appearance('icons/obj/power.dmi', "teg-op[L]")
+		. += mutable_appearance('icons/paradise/obj/power.dmi', "teg-op[L]")
 	if(hot_circ && cold_circ)
 		. += "teg-oc[lastcirc]"
 
@@ -44,52 +43,44 @@
 #define GENRATE 800 // generator output coefficient from Q
 
 /obj/machinery/power/generator/process_atmos()
-
 	if(!cold_circ || !hot_circ)
 		return
 
-	if(powernet)
-		var/datum/gas_mixture/cold_air = cold_circ.return_transfer_air()
-		var/datum/gas_mixture/hot_air = hot_circ.return_transfer_air()
+	var/datum/gas_mixture/cold_air = cold_circ.return_transfer_air()
+	var/datum/gas_mixture/hot_air = hot_circ.return_transfer_air()
 
-		if(cold_air && hot_air)
+	if(cold_air && hot_air)
+		var/cold_air_heat_capacity = cold_air.heat_capacity()
+		var/hot_air_heat_capacity = hot_air.heat_capacity()
 
-			var/cold_air_heat_capacity = cold_air.heat_capacity()
-			var/hot_air_heat_capacity = hot_air.heat_capacity()
-
-			var/delta_temperature = hot_air.temperature - cold_air.temperature
+		var/delta_temperature = hot_air.temperature - cold_air.temperature
 
 
-			if(delta_temperature > 0 && cold_air_heat_capacity > 0 && hot_air_heat_capacity > 0)
-				var/efficiency = 0.65
+		if(delta_temperature > 0 && cold_air_heat_capacity > 0 && hot_air_heat_capacity > 0)
+			var/efficiency = 0.65
 
-				var/energy_transfer = delta_temperature*hot_air_heat_capacity*cold_air_heat_capacity/(hot_air_heat_capacity+cold_air_heat_capacity)
+			var/energy_transfer = delta_temperature*hot_air_heat_capacity*cold_air_heat_capacity/(hot_air_heat_capacity+cold_air_heat_capacity)
 
-				var/heat = energy_transfer*(1-efficiency)
-				lastgen += energy_transfer*efficiency
+			var/heat = energy_transfer*(1-efficiency)
+			lastgen += energy_transfer*efficiency
 
-				hot_air.temperature = hot_air.temperature - energy_transfer/hot_air_heat_capacity
-				cold_air.temperature = cold_air.temperature + heat/cold_air_heat_capacity
+			hot_air.temperature = hot_air.temperature - energy_transfer/hot_air_heat_capacity
+			cold_air.temperature = cold_air.temperature + heat/cold_air_heat_capacity
 
-				//add_avail(lastgen) This is done in process now
-		// update icon overlays only if displayed level has changed
+	if(hot_air)
+		var/datum/gas_mixture/hot_circ_air1 = hot_circ.airs[1]
+		hot_circ_air1.merge(hot_air)
 
-		if(hot_air)
-			var/datum/gas_mixture/hot_circ_air1 = hot_circ.airs[1]
-			hot_circ_air1.merge(hot_air)
+	if(cold_air)
+		var/datum/gas_mixture/cold_circ_air1 = cold_circ.airs[1]
+		cold_circ_air1.merge(cold_air)
 
-		if(cold_air)
-			var/datum/gas_mixture/cold_circ_air1 = cold_circ.airs[1]
-			cold_circ_air1.merge(cold_air)
-
-		update_appearance()
 
 	var/circ = "[cold_circ?.last_pressure_delta > 0 ? "1" : "0"][hot_circ?.last_pressure_delta > 0 ? "1" : "0"]"
 	if(circ != lastcirc)
 		lastcirc = circ
-		update_appearance()
 
-	src.updateDialog()
+	update_appearance()
 
 /obj/machinery/power/generator/process()
 	//Setting this number higher just makes the change in power output slower, it doesnt actualy reduce power output cause **math**
@@ -99,58 +90,40 @@
 	lastgen -= power_output
 	..()
 
-/obj/machinery/power/generator/proc/get_menu(include_link = TRUE)
-	var/t = ""
-	if(!powernet)
-		t += "<span class='bad'>Unable to connect to the power network!</span>"
-	else if(cold_circ && hot_circ)
-		var/datum/gas_mixture/cold_circ_air1 = cold_circ.airs[1]
-		var/datum/gas_mixture/cold_circ_air2 = cold_circ.airs[2]
-		var/datum/gas_mixture/hot_circ_air1 = hot_circ.airs[1]
-		var/datum/gas_mixture/hot_circ_air2 = hot_circ.airs[2]
-
-		t += "<div class='statusDisplay'>"
-
-		t += "Output: [display_power(lastgenlev)]"
-
-		t += "<BR>"
-
-		t += "<B><font color='blue'>Cold loop</font></B><BR>"
-		t += "Temperature Inlet: [round(cold_circ_air2.temperature, 0.1)] K / Outlet: [round(cold_circ_air1.temperature, 0.1)] K<BR>"
-		t += "Pressure Inlet: [round(cold_circ_air2.return_pressure(), 0.1)] kPa /  Outlet: [round(cold_circ_air1.return_pressure(), 0.1)] kPa<BR>"
-
-		t += "<B><font color='red'>Hot loop</font></B><BR>"
-		t += "Temperature Inlet: [round(hot_circ_air2.temperature, 0.1)] K / Outlet: [round(hot_circ_air1.temperature, 0.1)] K<BR>"
-		t += "Pressure Inlet: [round(hot_circ_air2.return_pressure(), 0.1)] kPa / Outlet: [round(hot_circ_air1.return_pressure(), 0.1)] kPa<BR>"
-
-		t += "</div>"
-	else if(!hot_circ && cold_circ)
-		t += "<span class='bad'>Unable to locate hot circulator!</span>"
-	else if(hot_circ && !cold_circ)
-		t += "<span class='bad'>Unable to locate cold circulator!</span>"
-	else
-		t += "<span class='bad'>Unable to locate any parts!</span>"
-	if(include_link)
-		t += "<BR><A href='?src=[REF(src)];close=1'>Close</A>"
-
-	return t
-
-/obj/machinery/power/generator/ui_interact(mob/user)
-	. = ..()
-	var/datum/browser/popup = new(user, "teg", "Thermo-Electric Generator", 460, 300)
-	popup.set_content(get_menu())
-	popup.open()
-
-/obj/machinery/power/generator/Topic(href, href_list)
-	if(..())
+/obj/machinery/power/generator/ui_interact(mob/user, datum/tgui/ui)
+	if(panel_open)
 		return
-	if( href_list["close"] )
-		usr << browse(null, "window=teg")
-		usr.unset_machine()
-		return FALSE
-	return TRUE
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "TEGenerator", name)
+		ui.open()
 
+/obj/machinery/power/generator/ui_data()
+	var/list/data = list()
+	data["output"] = lastgenlev
 
+	var/datum/gas_mixture/cold_circ_air1 = cold_circ.airs[1]
+	var/datum/gas_mixture/cold_circ_air2 = cold_circ.airs[2]
+	var/datum/gas_mixture/hot_circ_air1 = hot_circ.airs[1]
+	var/datum/gas_mixture/hot_circ_air2 = hot_circ.airs[2]
+
+	data["cold"] = list()
+	if(cold_circ)
+		data["cold"]["dir"] = "left"
+		data["cold"]["inletPressure"] = cold_circ_air2.return_pressure()
+		data["cold"]["inletTemperature"] = cold_circ_air2.temperature
+		data["cold"]["outletPressure"] = cold_circ_air1.return_pressure()
+		data["cold"]["outletTemperature"] = cold_circ_air1.temperature
+
+	data["hot"] = list()
+	if(hot_circ)
+		data["hot"]["dir"] = "right"
+		data["hot"]["inletPressure"] = hot_circ_air2.return_pressure()
+		data["hot"]["inletTemperature"] = hot_circ_air2.temperature
+		data["hot"]["outletPressure"] = hot_circ_air1.return_pressure()
+		data["hot"]["outletTemperature"] = hot_circ_air1.temperature
+
+	return data
 
 /obj/machinery/power/generator/proc/find_circs()
 	kill_circs()

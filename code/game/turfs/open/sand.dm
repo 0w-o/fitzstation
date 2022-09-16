@@ -20,6 +20,9 @@
 	base_icon_state = "sand"
 	baseturfs = /turf/open/misc/beach/sand
 
+/turf/open/misc/beach/sand/hot
+	initial_gas_mix = OPENTURF_HOT
+
 /turf/open/misc/beach/coastline_t
 	name = "coastline"
 	desc = "Tide's high tonight. Charge your batons."

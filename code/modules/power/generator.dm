@@ -1,6 +1,7 @@
 /obj/machinery/power/generator
 	name = "thermoelectric generator"
 	desc = "It's a high efficiency thermoelectric generator."
+	icon = 'icons/paradise/obj/power.dmi'
 	icon_state = "teg"
 	density = TRUE
 	use_power = NO_POWER_USE

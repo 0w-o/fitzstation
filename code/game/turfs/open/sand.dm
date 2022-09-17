@@ -51,6 +51,49 @@
 	. = ..()
 	icon_state = "sandwater_b"
 
+/turf/open/misc/beach_bay
+	name = "beach"
+	desc = "Sandy."
+	icon = 'icons/baystation/misc/beach.dmi'
+	flags_1 = NONE
+	bullet_bounce_sound = null
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+
+/turf/open/misc/beach_bay/sand
+	gender = PLURAL
+	name = "sand"
+	desc = "Surf's up."
+	icon_state = "desert0"
+	base_icon_state = "desert0"
+	baseturfs = /turf/open/misc/beach_bay/sand
+
+/turf/open/misc/beach_bay/coastline_t
+	name = "coastline"
+	desc = "Tide's high tonight. Charge your batons."
+	icon_state = "beach"
+	base_icon_state = "beach"
+	baseturfs = /turf/open/misc/beach_bay/coastline_t
+
+/turf/open/misc/beach_bay/coastline_t/sandwater_inner
+	icon_state = "beachcorner"
+
+/turf/open/misc/beach_bay/coastline_b //need to make this water subtype.
+	name = "coastline"
+	icon_state = "sandwater_b"
+	base_icon_state = "sandwater_b"
+	baseturfs = /turf/open/misc/beach/coastline_b
+	footstep = FOOTSTEP_LAVA
+	barefootstep = FOOTSTEP_LAVA
+	clawfootstep = FOOTSTEP_LAVA
+	heavyfootstep = FOOTSTEP_LAVA
+
+/turf/open/misc/beach_bay/sand/coastline_b/break_tile()
+	. = ..()
+	icon_state = "sandwater_b"
+
 /turf/open/misc/sandy_dirt
 	gender = PLURAL
 	name = "dirt"

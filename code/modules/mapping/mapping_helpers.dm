@@ -79,6 +79,14 @@
 	name = "water baseturf editor"
 	baseturf = /turf/open/water/beach
 
+/obj/effect/baseturf_helper/beach_bay/sand
+	name = "bay beach sand baseturf editor"
+	baseturf = /turf/open/misc/beach_bay/sand
+
+/obj/effect/baseturf_helper/beach_bay/water
+	name = "bay water baseturf editor"
+	baseturf = /turf/open/water/beach_bay
+
 /obj/effect/baseturf_helper/lava
 	name = "lava baseturf editor"
 	baseturf = /turf/open/lava/smooth

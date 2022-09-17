@@ -36,3 +36,17 @@
 //Same turf, but instead used in the Beach Biodome
 /turf/open/water/beach/biodome
 	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+
+/turf/open/water/beach_bay
+	planetary_atmos = FALSE
+	gender = PLURAL
+	desc = "You get the feeling that nobody's bothered to actually make this water functional..."
+	icon = 'icons/baystation/misc/beach.dmi'
+	icon_state = "seashallow"
+	base_icon_state = "seashallow"
+	baseturfs = /turf/open/water/beach_bay
+	initial_gas_mix = OPENTURF_DEFAULT_ATMOS
+
+/turf/open/water/beach_bay/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/lazy_fishing_spot, FISHING_SPOT_PRESET_BEACH)

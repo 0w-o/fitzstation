@@ -243,8 +243,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		return FALSE
 	S.cd = "/"
 
-	// FIXME(fitz)
-	// WRITE_FILE(S["version"] , SAVEFILE_VERSION_MAX) //updates (or failing that the sanity checks) will ensure data is not invalid at load. Assume up-to-date
+	WRITE_FILE(S["version"] , SAVEFILE_VERSION_MAX) //updates (or failing that the sanity checks) will ensure data is not invalid at load. Assume up-to-date
 
 	for (var/preference_type in GLOB.preference_entries)
 		var/datum/preference/preference = GLOB.preference_entries[preference_type]
@@ -260,15 +259,15 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			write_preference(preference, preference.serialize(value_cache[preference_type]))
 
 	//general preferences
-	//WRITE_FILE(S["lastchangelog"], lastchangelog)
-	// WRITE_FILE(S["be_special"], be_special)
-	// WRITE_FILE(S["default_slot"], default_slot)
-	// WRITE_FILE(S["toggles"], toggles)
-	// WRITE_FILE(S["chat_toggles"], chat_toggles)
-	// WRITE_FILE(S["ignoring"], ignoring)
-	// WRITE_FILE(S["key_bindings"], key_bindings)
-	// WRITE_FILE(S["hearted_until"], (hearted_until > world.realtime ? hearted_until : null))
-	// WRITE_FILE(S["favorite_outfits"], favorite_outfits)
+	WRITE_FILE(S["lastchangelog"], lastchangelog)
+	WRITE_FILE(S["be_special"], be_special)
+	WRITE_FILE(S["default_slot"], default_slot)
+	WRITE_FILE(S["toggles"], toggles)
+	WRITE_FILE(S["chat_toggles"], chat_toggles)
+	WRITE_FILE(S["ignoring"], ignoring)
+	WRITE_FILE(S["key_bindings"], key_bindings)
+	WRITE_FILE(S["hearted_until"], (hearted_until > world.realtime ? hearted_until : null))
+	WRITE_FILE(S["favorite_outfits"], favorite_outfits)
 	return TRUE
 
 /datum/preferences/proc/load_character(slot)

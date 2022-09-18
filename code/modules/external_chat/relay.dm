@@ -16,23 +16,34 @@
 		"youtube" = FREQ_SYNDICATE
 		)
 
+	var/datum/http_request/current_request
 	var/obj/item/radio/radio
-
 	var/last_update = 0
+	var/first_request = TRUE
 
 /obj/machinery/external_chat/relay/proc/fetch_messages()
-	var/datum/http_request/request = new()
-	request.prepare(RUSTG_HTTP_METHOD_GET, "http://localhost:8192/messages?last=[last_update]", "", "")
-	request.begin_async()
-	UNTIL(request.is_complete())
+	if(!current_request)
+		current_request = new()
+		current_request.prepare(RUSTG_HTTP_METHOD_GET, "http://localhost:8192/messages?last=[last_update]", "", "")
+		current_request.begin_async()
+		return null
 
-	var/datum/http_response/response = request.into_response()
+	if(!current_request.is_complete())
+		return null
+
+	var/datum/http_response/response = current_request.into_response()
+	current_request = null
 
 	if(response.errored)
-		return
+		return null
 
 	var/list/data = json_decode(response["body"])
 	last_update = data["lastMessageTime"]
+
+	if(first_request)
+		first_request = FALSE
+		return null
+
 	var/list/messages = data["messages"]
 
 	for(var/list/message in messages)
@@ -40,17 +51,20 @@
 		message["sender"] = sanitize(message["sender"])
 		message["content"] = sanitize(message["content"])
 
+
 	return messages
 
 /obj/machinery/external_chat/relay/Initialize(mapload)
 	. = ..()
-	SHOULD_NOT_SLEEP(FALSE)
 
 	radio = new(src)
 	radio.set_listening(FALSE)
 
 	var/list/messages = fetch_messages()
-	if (messages.len > 0)
+	if(!messages)
+		return
+
+	if(messages.len > 0)
 		last_update = messages[messages.len]["time"]
 
 /obj/machinery/external_chat/relay/Destroy()
@@ -59,6 +73,9 @@
 
 /obj/machinery/external_chat/relay/process(delta_time)
 	var/list/messages = fetch_messages()
+
+	if(!messages)
+		return
 
 	for(var/list/message in messages)
 		if (!(message["origin"] in service_freq_mapping))

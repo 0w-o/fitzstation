@@ -39,6 +39,7 @@
 #define span_danger(str) ("<span class='danger'>" + str + "</span>")
 #define span_deadsay(str) ("<span class='deadsay'>" + str + "</span>")
 #define span_deconversion_message(str) ("<span class='deconversion_message'>" + str + "</span>")
+#define span_discordradio(str) ("<span class='discordradio'>" + str + "</span>")
 #define span_drone(str) ("<span class='drone'>" + str + "</span>")
 #define span_engradio(str) ("<span class='engradio'>" + str + "</span>")
 #define span_extremelybig(str) ("<span class='extremelybig'>" + str + "</span>")
@@ -112,11 +113,13 @@
 #define span_tape_recorder(str) ("<span class='tape_recorder'>" + str + "</span>")
 #define span_tinynotice(str) ("<span class='tinynotice'>" + str + "</span>")
 #define span_tinynoticeital(str) ("<span class='tinynoticeital'>" + str + "</span>")
+#define span_twitchradio(str) ("<span class='twitchradio'>" + str + "</span>")
 #define span_unconscious(str) ("<span class='unconscious'>" + str + "</span>")
 #define span_userdanger(str) ("<span class='userdanger'>" + str + "</span>")
 #define span_warning(str) ("<span class='warning'>" + str + "</span>")
 #define span_yell(str) ("<span class='yell'>" + str + "</span>")
 #define span_yellowteamradio(str) ("<span class='yellowteamradio'>" + str + "</span>")
+#define span_youtuberadio(str) ("<span class='youtuberadio'>" + str + "</span>")
 
 // Spans that use embedded tgui components:
 // Sorted alphabetically

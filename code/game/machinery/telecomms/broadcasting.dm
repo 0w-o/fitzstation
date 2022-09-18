@@ -195,21 +195,11 @@
 	if(data["job"])
 		var/rendered_basic = virt.compose_message_basic(virt, language, message, frequency, spans)
 
-		////FIXME(fitz): i don't even know.
-		// var/list/freq_service_mapping = list(
-		// 	FREQ_COMMAND = "twitch",
-		// 	FREQ_CENTCOM = "discord",
-		// 	FREQ_SYNDICATE = "youtube"
-		// )
-
-		// if (frequency in freq_service_mapping)
-		// 	virt.send_speech_to_service(freq_service_mapping[frequency], rendered_basic)
-
-		if(frequency == FREQ_COMMAND)
+		if(frequency == FREQ_TWITCH)
 			virt.send_speech_to_service("twitch", rendered_basic)
-		else if(frequency == FREQ_CENTCOM)
+		else if(frequency == FREQ_DISCORD)
 			virt.send_speech_to_service("discord", rendered_basic)
-		else if(frequency == FREQ_SYNDICATE)
+		else if(frequency == FREQ_YOUTUBE)
 			virt.send_speech_to_service("youtube", rendered_basic)
 
 	for(var/atom/movable/hearer as anything in receive)

@@ -33,17 +33,31 @@
 #define RADIO_KEY_AI_PRIVATE "o"
 #define RADIO_TOKEN_AI_PRIVATE ":o"
 
-#define RADIO_CHANNEL_COMMAND "Twitch"
-#define RADIO_KEY_COMMAND "t"
-#define RADIO_TOKEN_COMMAND ":t"
+#define RADIO_CHANNEL_COMMAND "Command"
+#define RADIO_KEY_COMMAND "c"
+#define RADIO_TOKEN_COMMAND ":c"
 
-#define RADIO_CHANNEL_SYNDICATE "Youtube"
-#define RADIO_KEY_SYNDICATE "y"
-#define RADIO_TOKEN_SYNDICATE ":y"
+#define RADIO_CHANNEL_SYNDICATE "Syndicate"
+#define RADIO_KEY_SYNDICATE "t"
+#define RADIO_TOKEN_SYNDICATE ":t"
 
-#define RADIO_CHANNEL_CENTCOM "Discord"
-#define RADIO_KEY_CENTCOM "i"
-#define RADIO_TOKEN_CENTCOM ":i"
+#define RADIO_CHANNEL_CENTCOM "CentCom"
+#define RADIO_KEY_CENTCOM "y"
+#define RADIO_TOKEN_CENTCOM ":y"
+
+// External chat
+
+#define RADIO_CHANNEL_TWITCH "Twitch"
+#define RADIO_KEY_TWITCH "w"
+#define RADIO_TOKEN_TWITCH ":w"
+
+#define RADIO_CHANNEL_DISCORD "Discord"
+#define RADIO_KEY_DISCORD "i"
+#define RADIO_TOKEN_DISCORD ":i"
+
+#define RADIO_CHANNEL_YOUTUBE "Youtube"
+#define RADIO_KEY_YOUTUBE "x"
+#define RADIO_TOKEN_YOUTUBE ":x"
 
 #define RADIO_CHANNEL_CTF_RED "Red Team"
 #define RADIO_CHANNEL_CTF_BLUE "Blue Team"
@@ -67,6 +81,11 @@
 #define FREQ_MEDICAL 1355  // Medical comms frequency, soft blue
 #define FREQ_ENGINEERING 1357  // Engineering comms frequency, orange
 #define FREQ_SECURITY 1359  // Security comms frequency, red
+
+// external chat
+#define FREQ_TWITCH 1371
+#define FREQ_DISCORD 1373
+#define FREQ_YOUTUBE 1375
 
 #define FREQ_HOLOGRID_SOLUTION 1433
 #define FREQ_STATUS_DISPLAYS 1435

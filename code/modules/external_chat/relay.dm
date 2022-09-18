@@ -11,10 +11,10 @@
 	verb_say = "unknown says"
 
 	var/list/service_freq_mapping = list(
-		"twitch" = FREQ_COMMAND,
-		"discord" = FREQ_CENTCOM,
-		"youtube" = FREQ_SYNDICATE
-		)
+		"twitch" = FREQ_TWITCH,
+		"discord" = FREQ_DISCORD,
+		"youtube" = FREQ_YOUTUBE,
+	)
 
 	var/datum/http_request/current_request
 	var/obj/item/radio/radio

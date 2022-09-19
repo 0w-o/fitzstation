@@ -1,5 +1,6 @@
 /datum/asset/simple/headers
 	assets = list(
+		"atm.gif" = 'icons/program_icons/atm.gif',
 		"alarm_green.gif" = 'icons/program_icons/alarm_green.gif',
 		"alarm_red.gif" = 'icons/program_icons/alarm_red.gif',
 		"batt_5.gif" = 'icons/program_icons/batt_5.gif',

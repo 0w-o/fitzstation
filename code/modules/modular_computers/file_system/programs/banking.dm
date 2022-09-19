@@ -8,11 +8,17 @@
 	requires_ntnet = TRUE
 	size = 2
 	tgui_id = "Banking"
-	program_icon = "radiation"
+	program_icon = "credit-card"
 	alert_able = FALSE
 
 	var/withdrawal_amount = 0
 	var/deposit_amount = 0
+	var/network_balance = 0
+
+/datum/computer_file/program/banking/on_start(mob/living/user)
+	. = ..(user)
+	network_balance = fetch_balance(user)
+
 
 /datum/computer_file/program/banking/ui_data(mob/user)
 	var/list/data = get_header_data()
@@ -37,7 +43,7 @@
 	data["locked"] = FALSE
 	data["withdrawal_amount"] = withdrawal_amount
 	data["deposit_amount"] = deposit_amount
-	data["balance"] = fetch_balance(user)
+	data["balance"] = network_balance
 	data["id_balance"] = user_id_card.registered_account.account_balance
 
 	return data
@@ -73,10 +79,10 @@
 			. = TRUE
 
 		if("PRG_withdraw")
-			var/network_balance = fetch_balance(user)
 			if(withdrawal_amount > 0 && withdrawal_amount <= network_balance)
 				user_id_card.registered_account.adjust_money(withdrawal_amount)
 				adjust_balance(user, -withdrawal_amount)
+				withdrawal_amount = 0
 				. = TRUE
 
 		if("PRG_change_deposit")
@@ -90,9 +96,11 @@
 			if(deposit_amount > 0 && deposit_amount <= id_balance)
 				user_id_card.registered_account.adjust_money(-deposit_amount)
 				adjust_balance(user, deposit_amount)
+				deposit_amount = 0
 				. = TRUE
 
 /datum/computer_file/program/banking/proc/fetch_balance(mob/user)
+	set waitfor = FALSE
 	if(!SSdbcore.Connect())
 		return 0
 
@@ -104,16 +112,15 @@
 
 	var/query_succeeded = query_fetch_balance.Execute()
 	if(query_succeeded && query_fetch_balance.NextRow())
-		var/account_balance = query_fetch_balance.item[1]
+		network_balance = query_fetch_balance.item[1]
 		qdel(query_fetch_balance)
-		return account_balance
-
-	return 0
 
 /datum/computer_file/program/banking/proc/adjust_balance(mob/user, difference)
 	set waitfor = FALSE
 	if(!SSdbcore.Connect())
 		return
+
+	network_balance += difference
 
 	var/datum/db_query/query_set_balance = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("bank_account")] (ckey, balance)

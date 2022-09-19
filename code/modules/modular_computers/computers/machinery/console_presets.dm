@@ -180,3 +180,15 @@
 
 /obj/machinery/modular_computer/console/preset/cargochat/medical
 	console_department = "Medical"
+
+/obj/machinery/modular_computer/console/preset/atm
+	console_department = "Banking"
+	name = "banking console"
+	desc = "A stationary computer. This one comes preloaded with banking programs."
+	_has_second_id_slot = TRUE
+	_has_printer = TRUE
+
+/obj/machinery/modular_computer/console/preset/atm/install_programs()
+	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
+	hard_drive.store_file(new/datum/computer_file/program/banking())
+	hard_drive.store_file(new/datum/computer_file/program/card_mod())

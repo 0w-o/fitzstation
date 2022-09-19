@@ -99,6 +99,19 @@ CREATE TABLE `SS13_ban` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `bank_account`
+--
+DROP TABLE IF EXISTS `SS13_bank_account`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SS13_bank_account` (
+  `ckey` varchar(32) NOT NULL,
+  `balance` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ckey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `citation`
 --
 DROP TABLE IF EXISTS `SS13_citation`;

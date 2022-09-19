@@ -192,7 +192,7 @@
 
 	// NOTE(fitz): just checking that this is actually a player
 	// there's probably a better way, but this probably works
-	if(data["job"])
+	if(data["job"] != "Machine")
 		var/rendered_basic = virt.compose_message_basic(virt, language, message, frequency, spans)
 
 		if(frequency == FREQ_TWITCH)

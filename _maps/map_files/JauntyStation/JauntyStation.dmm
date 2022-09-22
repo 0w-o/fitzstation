@@ -2010,6 +2010,10 @@
 "lc" = (
 /turf/open/floor/engine,
 /area/station/hallway/secondary/entry)
+"ld" = (
+/obj/machinery/atm,
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "lg" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden{
 	dir = 4
@@ -2092,6 +2096,10 @@
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/plating,
 /area/station/engineering/atmos)
+"oH" = (
+/obj/machinery/modular_computer/console/preset/atm,
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "oI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -2123,6 +2131,10 @@
 /obj/machinery/door/airlock/external/glass/ruin,
 /turf/open/floor/plating,
 /area/station/medical/medbay)
+"pV" = (
+/obj/effect/landmark/start/captain,
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "qb" = (
 /obj/machinery/door/airlock,
 /turf/open/floor/plating,
@@ -2365,6 +2377,10 @@
 /obj/structure/closet/syndicate/resources/everything,
 /turf/open/floor/iron,
 /area/station/science)
+"CN" = (
+/obj/machinery/modular_computer/console/preset/atm,
+/turf/closed/wall/r_wall,
+/area/station/commons/storage/primary)
 "CQ" = (
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/stripes/line{
@@ -2479,6 +2495,10 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/station/engineering/main)
+"HJ" = (
+/obj/item/modular_computer/tablet/preset/advanced/command,
+/turf/open/floor/iron,
+/area/station/commons/storage/primary)
 "If" = (
 /obj/machinery/rnd/production/techfab/department,
 /turf/open/floor/iron,
@@ -2756,10 +2776,6 @@
 /obj/machinery/door/poddoor,
 /turf/open/floor/engine,
 /area/station/hallway/secondary/entry)
-"Ts" = (
-/obj/effect/landmark/start/captain,
-/turf/open/floor/plating,
-/area/station/engineering/main)
 "Tt" = (
 /turf/open/floor/plating,
 /area/station/maintenance/aft)
@@ -7111,7 +7127,7 @@ WM
 WM
 WM
 WM
-Ts
+WM
 WM
 pv
 hb
@@ -7378,7 +7394,7 @@ wb
 bE
 bE
 cS
-cS
+CN
 cS
 cS
 cS
@@ -8119,7 +8135,7 @@ du
 dJ
 dJ
 dJ
-dJ
+HJ
 dJ
 dJ
 dJ
@@ -8211,7 +8227,7 @@ dv
 dJ
 dJ
 dJ
-dJ
+ld
 dJ
 dJ
 dJ
@@ -8303,7 +8319,7 @@ dw
 dJ
 dJ
 dJ
-dJ
+oH
 dJ
 dJ
 dJ
@@ -8396,7 +8412,7 @@ dJ
 dJ
 dJ
 dF
-dJ
+pV
 dJ
 dJ
 dJ

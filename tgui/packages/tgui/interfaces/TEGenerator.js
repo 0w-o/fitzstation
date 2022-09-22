@@ -42,16 +42,11 @@ export const TEGenerator = (props, context) => {
 const TEGCirculator = (props, context) => {
   const { name, values } = props;
 
-  const {
-    dir,
-    inletPressure,
-    inletTemperature,
-    outletPressure,
-    outletTemperature,
-  } = values;
+  const { inletPressure, inletTemperature, outletPressure, outletTemperature } =
+    values;
 
   return (
-    <Section title={name + ' (' + dir + ')'}>
+    <Section title={name}>
       <LabeledList>
         <LabeledList.Item label="Inlet Pressure">
           {formatSiUnit(inletPressure * 1000, 0, 'Pa')}

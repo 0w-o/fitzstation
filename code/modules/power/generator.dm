@@ -69,10 +69,14 @@
 
 	if(hot_air)
 		var/datum/gas_mixture/hot_circ_air1 = hot_circ.airs[1]
+		if(hot_circ.flipped)
+			hot_circ_air1 = hot_circ.airs[2]
 		hot_circ_air1.merge(hot_air)
 
 	if(cold_air)
 		var/datum/gas_mixture/cold_circ_air1 = cold_circ.airs[1]
+		if(cold_circ.flipped)
+			cold_circ_air1 = cold_circ.airs[2]
 		cold_circ_air1.merge(cold_air)
 
 
@@ -102,26 +106,31 @@
 	var/list/data = list()
 	data["output"] = lastgenlev
 
-	var/datum/gas_mixture/cold_circ_air1 = cold_circ.airs[1]
-	var/datum/gas_mixture/cold_circ_air2 = cold_circ.airs[2]
-	var/datum/gas_mixture/hot_circ_air1 = hot_circ.airs[1]
-	var/datum/gas_mixture/hot_circ_air2 = hot_circ.airs[2]
+	var/datum/gas_mixture/cold_inlet_air = cold_circ.airs[1]
+	var/datum/gas_mixture/cold_outlet_air = cold_circ.airs[2]
+	var/datum/gas_mixture/hot_inlet_air = hot_circ.airs[1]
+	var/datum/gas_mixture/hot_outlet_air = hot_circ.airs[2]
+
+	if(cold_circ.flipped)
+		cold_inlet_air = cold_circ.airs[2]
+		cold_outlet_air = cold_circ.airs[1]
+	if(hot_circ.flipped)
+		hot_inlet_air = hot_circ.airs[2]
+		hot_outlet_air = hot_circ.airs[1]
 
 	data["cold"] = list()
 	if(cold_circ)
-		data["cold"]["dir"] = "left"
-		data["cold"]["inletPressure"] = cold_circ_air2.return_pressure()
-		data["cold"]["inletTemperature"] = cold_circ_air2.temperature
-		data["cold"]["outletPressure"] = cold_circ_air1.return_pressure()
-		data["cold"]["outletTemperature"] = cold_circ_air1.temperature
+		data["cold"]["inletPressure"] = cold_inlet_air.return_pressure()
+		data["cold"]["inletTemperature"] = cold_inlet_air.temperature
+		data["cold"]["outletPressure"] = cold_outlet_air.return_pressure()
+		data["cold"]["outletTemperature"] = cold_outlet_air.temperature
 
 	data["hot"] = list()
 	if(hot_circ)
-		data["hot"]["dir"] = "right"
-		data["hot"]["inletPressure"] = hot_circ_air2.return_pressure()
-		data["hot"]["inletTemperature"] = hot_circ_air2.temperature
-		data["hot"]["outletPressure"] = hot_circ_air1.return_pressure()
-		data["hot"]["outletTemperature"] = hot_circ_air1.temperature
+		data["hot"]["inletPressure"] = hot_inlet_air.return_pressure()
+		data["hot"]["inletTemperature"] = hot_inlet_air.temperature
+		data["hot"]["outletPressure"] = hot_outlet_air.return_pressure()
+		data["hot"]["outletTemperature"] = hot_outlet_air.temperature
 
 	return data
 

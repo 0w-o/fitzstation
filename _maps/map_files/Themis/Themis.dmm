@@ -247,7 +247,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/turf/open/floor/plating,
+/turf/open/floor/iron/dark,
 /area/awaymission)
 "oy" = (
 /obj/effect/turf_decal/stripes/line{
@@ -259,16 +259,16 @@
 "oI" = (
 /obj/effect/turf_decal/stripes/end,
 /obj/machinery/portable_atmospherics/canister/plasma,
-/turf/open/floor/plating,
+/turf/open/floor/iron/dark,
 /area/awaymission)
 "oY" = (
-/obj/machinery/atmospherics/components/unary/portables_connector{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
 /area/awaymission)
 "pl" = (
 /obj/structure/cable,
@@ -502,6 +502,16 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/iron{
 	color = "#0000ff"
+	},
+/area/awaymission)
+"zp" = (
+/obj/structure/frame/machine{
+	anchored = 1;
+	icon_state = "box_2";
+	state = 2
+	},
+/turf/open/floor/iron{
+	color = "#ff0000"
 	},
 /area/awaymission)
 "zG" = (
@@ -746,17 +756,16 @@
 /turf/open/floor/engine/airless,
 /area/awaymission)
 "OM" = (
-/obj/machinery/atmospherics/components/unary/portables_connector,
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
 	},
-/turf/open/floor/plating,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible,
+/turf/open/floor/iron/dark,
 /area/awaymission)
 "OQ" = (
 /obj/machinery/atmospherics/components/binary/circulator{
 	active = 1;
 	dir = 1;
-	flipped = 1;
 	name = "hot loop circulator";
 	on = 1
 	},
@@ -815,7 +824,9 @@
 /turf/closed/wall/r_wall,
 /area/awaymission)
 "Sg" = (
-/obj/machinery/door/airlock/engineering,
+/obj/machinery/door/airlock/engineering{
+	dir = 8
+	},
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/cyan/visible,
 /turf/open/floor/engine,
@@ -916,16 +927,6 @@
 	},
 /obj/structure/rack,
 /turf/open/floor/iron,
-/area/awaymission)
-"XX" = (
-/obj/structure/frame/machine{
-	anchored = 1;
-	icon_state = "box_2";
-	state = 2
-	},
-/turf/open/floor/iron{
-	color = "#ff0000"
-	},
 /area/awaymission)
 "Yj" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
@@ -22646,7 +22647,7 @@ OQ
 tJ
 Zp
 Xs
-XX
+zp
 RF
 AU
 AU
@@ -22888,7 +22889,7 @@ Xs
 LM
 Xs
 Xs
-XX
+zp
 RF
 RF
 RF
@@ -23610,9 +23611,9 @@ xD
 xD
 iB
 xD
+iB
 xD
-xD
-xD
+iB
 xD
 xD
 RF

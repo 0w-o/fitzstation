@@ -22,13 +22,6 @@
 	var/mode = CIRCULATOR_HOT
 	var/obj/machinery/power/generator/generator
 
-// /obj/machinery/atmospherics/components/binary/circulator/Initialize(mapload)
-// 	. = ..()
-// 	AddComponent(/datum/component/simple_rotation)
-
-// /obj/machinery/atmospherics/components/binary/circulator/AltClick(mob/user)
-// 	return ..() // This hotkey is BLACKLISTED since it's used by /datum/component/simple_rotation
-
 //default cold circ for mappers
 /obj/machinery/atmospherics/components/binary/circulator/cold
 	icon_state = "circ2-off"
@@ -40,9 +33,13 @@
 	return ..()
 
 /obj/machinery/atmospherics/components/binary/circulator/proc/return_transfer_air()
-
+	// TODO(fitz): rename inlet/outlet
 	var/datum/gas_mixture/air1 = airs[1]
 	var/datum/gas_mixture/air2 = airs[2]
+
+	if(flipped)
+		air1 = airs[2]
+		air2 = airs[1]
 
 	var/output_starting_pressure = air1.return_pressure()
 	var/input_starting_pressure = air2.return_pressure()
@@ -186,7 +183,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!ishuman(usr))
+	if(!ishuman(usr) && !iscyborg(usr))
 		return
 
 	if(anchored)

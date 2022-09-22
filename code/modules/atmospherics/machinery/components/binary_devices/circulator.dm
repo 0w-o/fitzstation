@@ -6,8 +6,7 @@
 /obj/machinery/atmospherics/components/binary/circulator
 	name = "circulator/heat exchanger"
 	desc = "A gas circulator pump and heat exchanger."
-	icon = 'icons/paradise/obj/atmospherics/circulator.dmi'
-	icon_state = "circ1-off"
+	icon_state = "circ-off-0"
 
 	var/active = FALSE
 
@@ -24,7 +23,6 @@
 
 //default cold circ for mappers
 /obj/machinery/atmospherics/components/binary/circulator/cold
-	icon_state = "circ2-off"
 	mode = CIRCULATOR_COLD
 
 /obj/machinery/atmospherics/components/binary/circulator/Destroy()
@@ -73,16 +71,16 @@
 
 /obj/machinery/atmospherics/components/binary/circulator/update_icon_state()
 	if(!is_operational)
-		icon_state = "circ[dir]-p"
+		icon_state = "circ-p-[flipped]"
 		return ..()
 	if(last_pressure_delta > 0)
 		if(last_pressure_delta > ONE_ATMOSPHERE)
-			icon_state = "circ[dir]-run"
+			icon_state = "circ-run-[flipped]"
 		else
-			icon_state = "circ[dir]-slow"
+			icon_state = "circ-slow-[flipped]"
 		return ..()
 
-	icon_state = "circ[dir]-off"
+	icon_state = "circ-off-[flipped]"
 	return ..()
 
 /obj/machinery/atmospherics/components/binary/circulator/wrench_act(mob/living/user, obj/item/I)

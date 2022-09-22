@@ -1,7 +1,6 @@
 /obj/machinery/power/generator
 	name = "thermoelectric generator"
 	desc = "It's a high efficiency thermoelectric generator."
-	icon = 'icons/paradise/obj/power.dmi'
 	icon_state = "teg"
 	density = TRUE
 	use_power = NO_POWER_USE
@@ -35,7 +34,7 @@
 
 	var/L = min(round(lastgenlev / 100000), 11)
 	if(L != 0)
-		. += mutable_appearance('icons/paradise/obj/power.dmi', "teg-op[L]")
+		. += mutable_appearance('icons/obj/power.dmi', "teg-op[L]")
 	if(hot_circ && cold_circ)
 		. += "teg-oc[lastcirc]"
 
@@ -106,17 +105,17 @@
 	var/list/data = list()
 	data["output"] = lastgenlev
 
-	var/datum/gas_mixture/cold_inlet_air = cold_circ.airs[1]
-	var/datum/gas_mixture/cold_outlet_air = cold_circ.airs[2]
-	var/datum/gas_mixture/hot_inlet_air = hot_circ.airs[1]
-	var/datum/gas_mixture/hot_outlet_air = hot_circ.airs[2]
+	var/datum/gas_mixture/cold_outlet_air = cold_circ.airs[1]
+	var/datum/gas_mixture/cold_inlet_air = cold_circ.airs[2]
+	var/datum/gas_mixture/hot_outlet_air = hot_circ.airs[1]
+	var/datum/gas_mixture/hot_inlet_air = hot_circ.airs[2]
 
 	if(cold_circ.flipped)
-		cold_inlet_air = cold_circ.airs[2]
-		cold_outlet_air = cold_circ.airs[1]
+		cold_outlet_air = cold_circ.airs[2]
+		cold_inlet_air = cold_circ.airs[1]
 	if(hot_circ.flipped)
-		hot_inlet_air = hot_circ.airs[2]
-		hot_outlet_air = hot_circ.airs[1]
+		hot_outlet_air = hot_circ.airs[2]
+		hot_inlet_air = hot_circ.airs[1]
 
 	data["cold"] = list()
 	if(cold_circ)
@@ -149,11 +148,11 @@
 			circs += C
 	else
 		C = locate(circpath) in get_step(src, NORTH)
-		if(C && C.dir == EAST)
+		if(C && C.dir == WEST)
 			circs += C
 
 		C = locate(circpath) in get_step(src, SOUTH)
-		if(C && C.dir == SOUTH)
+		if(C && C.dir == EAST)
 			circs += C
 
 	if(circs.len)

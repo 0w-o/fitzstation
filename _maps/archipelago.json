@@ -1,9 +1,0 @@
-{
-	"version": 1,
-	"map_name": "Archipelago",
-	"map_path": "map_files/Archipelago",
-	"map_file": "Archipelago.dmm",
-	"shuttles": {
-		"cargo": "cargo_delta"
-	}
-}
